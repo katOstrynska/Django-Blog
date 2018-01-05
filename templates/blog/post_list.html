@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{#{% extends 'blog/base.html' %}#}
+{% load blog_extras %}
+
+{% block content %}
+{#    {% for excerpt in excerpts %}#}
+{#       <p>{{ excerpt }}</p>#}
+{#    {% endfor %}#}
+
+
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+            <p>{{ post.author }}</p>
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <p>{{ post.excerpt }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+
+

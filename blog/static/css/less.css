@@ -1,0 +1,41 @@
+.pageTitle {
+  padding: 20px 20px 20px 40px;
+  margin-top: 0;
+  background-color: #ff6666;
+}
+.pageTitle h1,
+.pageTitle h1 a,
+.pageTitle h1 a:visited,
+.pageTitle h1 a:active {
+  color: #ffffff;
+  font-size: 36px;
+  text-decoration: none;
+}
+h1,
+h1,
+h3,
+h4 {
+  font-family: 'Satisfy', cursive;
+}
+.date {
+  color: #999999;
+  letter-spacing: 2px;
+}
+.post {
+  margin-bottom: 50px;
+  margin-top: 20px;
+}
+.post h2 a,
+.post h2 a:visited {
+  color: #000000;
+  text-decoration: none;
+}
+.top-menu,
+.top-menu:hover,
+.top-menu:visited {
+  color: #ffffff;
+  float: right;
+  font-size: 26pt;
+  margin-right: 20px;
+}
+

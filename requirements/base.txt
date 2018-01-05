@@ -1,0 +1,7 @@
+Pillow
+
+django-ckeditor
+social-auth-app-django
+rq
+django-rq
+rq-scheduler
