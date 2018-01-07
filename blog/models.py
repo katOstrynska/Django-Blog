@@ -45,7 +45,8 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey('blog.Post', related_name='comments', on_delete=models.CASCADE, default=1)
-    author = models.CharField(max_length=200)
+    author = models.CharField(max_length=200, default='')
+    bot_name = models.ForeignKey('blog.User', related_name='user', null=True, blank=True, on_delete=models.CASCADE, default='')
     text = RichTextField(default='Comment')
     created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
@@ -55,7 +56,7 @@ class Comment(models.Model):
         self.save()
 
     def __str__(self):
-        return '%s %s' % (self.text, self.post)
+        return 'post:%s author:%s text:%s' % (self.post, self.author, self.text)
 
     # def add_comment_to_post(self, post_id):
     #     self.post = post_id
