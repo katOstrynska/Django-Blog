@@ -46,7 +46,7 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey('blog.Post', related_name='comments', on_delete=models.CASCADE, default=1)
     author = models.CharField(max_length=200, default='')
-    bot_name = models.ForeignKey('blog.User', related_name='user', null=True, blank=True, on_delete=models.CASCADE, default='')
+    bot_name = models.ForeignKey('blog.User', related_name='comments', null=True, blank=True, on_delete=models.CASCADE, default='')
     text = RichTextField(default='Comment')
     created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
