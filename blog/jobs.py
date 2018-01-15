@@ -4,6 +4,7 @@ import django_rq
 import random
 from django_rq import job
 from blog.models import Comment, User, Post
+from django.db.models import Count
 
 redis_conn = django_rq.get_connection('default')
 
@@ -28,7 +29,10 @@ def bot(instance_id):
                                                  bot_name=new_author)
             print(new_comment)
         else:
-            print('Wybieramy autora z najmniejszą liczbą komentarzy')
+            # print('Wybieramy autora z najmniejszą liczbą komentarzy')
+            bots_with_comments = User.objects.filter(is_bot_flag=True).annotate(num_comm=Count('comments'))
+            for x in bots_with_comments:
+                print(x.num_comm)
     else:
         print('Komentarz już jest')
 
