@@ -4,6 +4,7 @@ import django_rq
 import random
 from django_rq import job
 from blog.models import Comment, User, Post
+from django.db.models import Count
 
 redis_conn = django_rq.get_connection('default')
 
@@ -28,7 +29,31 @@ def bot(instance_id):
                                                  bot_name=new_author)
             print(new_comment)
         else:
-            print('Wybieramy autora z najmniejszą liczbą komentarzy')
+            # print('Wybieramy autora z najmniejszą liczbą komentarzy')
+            # dict = {}
+            bots_with_comments = User.objects.filter(is_bot_flag=True).annotate(num_comm=Count('comments'))
+            tmp = bots_with_comments[0]
+            for i in range (1,len(bots_with_comments)):
+                if bots_with_comments[i].num_comm < tmp.num_comm:
+                    tmp = bots_with_comments[i]
+                if tmp.num_comm == 0:
+                    break
+
+            new_comment = Comment.objects.create(post_id=instance_id,
+                                                 author=tmp,
+                                                 text='W pełni działający komentarz wstawiony przez bota, który już istanieje w bazie',
+                                                 bot_name=tmp)
+            print(new_comment)
+
+            # bots_with_comments = User.objects.filter(is_bot_flag=True).annotate(num_comm=Count('comments'))
+            # for x in bots_with_comments:
+            #     dict.update({x.username: x.num_comm})
+            # print(dict)
+            # bot_username_min_comments = min(dict, key=dict.get)
+            # new_comment = Comment.objects.create(post_id=instance_id,
+            #                                      author=bot_username_min_comments,
+            #                                      text='W pełni działający komentarz wstawiony przez bota, który już istanieje w bazie')
+            # print(new_comment)
     else:
         print('Komentarz już jest')
 
